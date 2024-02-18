@@ -1,0 +1,9 @@
+.actualPlayer0,
+.actualPlayer1,
+.actualPlayer2,
+.actualPlayer3,
+.actualPlayer4
+ {
+    height: 5rem;
+    width: 5rem;
+}

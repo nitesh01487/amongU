@@ -12,17 +12,19 @@ const p4 = new actualPlayer(model.colors[4], 'bot');
 const listOfPlayer = [p0, p1, p2, p3, p4];
 
 
-const controlMovement = function() {
+
+const controlMovement = function(from = 'down') {
 
     // Check the movement validity
 
     // Move the player
+    
 
     // toggle side
     p0.setFaceDirection();
 
     // render animation
-    if(window[`${p0._ele.className}animation`] == undefined)
+    if(window[`${p0._ele.className}animation`] == undefined && from == 'down')
         p0._animation = model.runAnimation(p0._ele, p0.getCoordinate());
 
     // set stationary direction after animation

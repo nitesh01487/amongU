@@ -9,9 +9,11 @@ export default class Player {
     _radius;
     _animation;
     isLeft = false;
+    isUp = false;
     pxToREM = 0.0625;
     keyEnabledArray = Array(222).fill(true);
     ispressed = Array(4).fill(false); // 0 -> left // 1 ->up // 2 -> right // 3 -> bottom
+    noOfButtonPressed = 0;
     constructor(color) {
         this._color = color;
     }
@@ -38,47 +40,49 @@ export default class Player {
 
     addRunningHandler(handler) {
         window.addEventListener('keydown', (e)=> {
-            e.preventDefault();
-            if(this.keyEnabledArray[e.keyCode] && !(this.ispressed[0] && e.key == 'd') && (!(this.ispressed[2] && e.key == 'a'))) {
-                this.keyEnabledArray[e.keyCode] = false;
-                console.log(e.keyCode);
-                console.log(this.keyEnabledArray[e.keyCode])
-                if(e.key == 'a' || e.key == 'd') {
-                    this.isLeft = e.key == 'a' ? true : false;
-                    this.ispressed[e.key == 'a' ? 0 : 2] = true;
-                }
-                if(e.key == 's') {
-    
-                }
-                if(e.key == 'w') {
-    
-                }
-                if(e.key == 'a' || e.key == 's' || e.key == 'd' || e.key == 'w' || e.key == 'k')
-                    handler();
+            if(!this.keyEnabledArray[e.keyCode]) return; // if same key pressed
+            if((this.ispressed[0] && e.key == 'd') || (this.ispressed[2] && e.key == 'a')) return; // if a and d are pressed at same time
+            if((this.ispressed[1] && e.key == 's') || (this.ispressed[3] && e.key == 'w')) return;
+
+            this.keyEnabledArray[e.keyCode] = false;
+            this.noOfButtonPressed += 1;
+
+            if(e.key == 'a' || e.key == 'd') {
+                this.isLeft = e.key == 'a' ? true : false;
+                this.ispressed[e.key == 'a' ? 0 : 2] = true;
+                console.log(this.isLeft, this.ispressed)
             }
+            if(e.key == 'w' || e.key == 's') {
+                this.isUp = e.key == 'w' ? true : false;
+                this.ispressed[e.key == 'w' ? 1 : 3] = true;
+                console.log(this.isUp, this.ispressed)
+            }
+            if(e.key == 'a' || e.key == 's' || e.key == 'd' || e.key == 'w')
+                    handler();
         });
 
-        window.addEventListener('keyup', (e) => {  // sequence is very important in this
-            e.preventDefault();
-            console.log(e.keyCode);
-            if(!(this.ispressed[0] && e.key == 'd') && (!(this.ispressed[2] && e.key == 'a'))) {
+        window.addEventListener('keyup', (e) => {  // logic sequence is very important in this
 
-                if(e.key == 'a' || e.key == 'd') {
-                    this.ispressed[e.key == 'a' ? 0 : 2] = false;
-                    clearInterval(window[`${this._ele.className}animation`]);
-                }
-                if(e.key == 's') {
-                    
-                }
-                if(e.key == 'w') {
-                    
-                }
-                
-                if(e.key == 'a' || e.key == 's' || e.key == 'd' || e.key == 'w' || e.key == 'k')
-                    handler();
-                window[`${this._ele.className}animation`] = undefined;  
-                this.keyEnabledArray[e.keyCode] = true;
+            if((this.ispressed[0] && e.key == 'd') || (this.ispressed[2] && e.key == 'a')) return;
+            if((this.ispressed[1] && e.key == 's') || (this.ispressed[3] && e.key == 'w')) return;
+
+            this.noOfButtonPressed -= 1;
+            this.keyEnabledArray[e.keyCode] = true;
+
+            if(e.key == 'a' || e.key == 'd') { // used left value true means left and false means right and isPressed value whether key is pressesd or not
+                this.ispressed[e.key == 'a' ? 0 : 2] = false;
+                console.log(this.isLeft, this.ispressed)
             }
+            if(e.key == 'w' || e.key == 's') {
+                this.ispressed[e.key == 'w' ? 1 : 3] = false;
+                console.log(this.isUp, this.ispressed)
+            }
+
+            if(this.noOfButtonPressed == 0){
+                clearInterval(window[`${this._ele.className}animation`]);
+                window[`${this._ele.className}animation`] = undefined;  
+            }
+            handler('up');
         })
     }
 

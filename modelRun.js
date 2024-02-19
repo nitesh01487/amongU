@@ -367,9 +367,34 @@ export { colors };
 
 
 
-//
+let elem, speed,isLeft, isUp, str;
+let ispressed;
+
+
+function renderPixel(ispressed,isLeft, isUp,  str) {
+    elem = document.querySelector(`.actualPlayer${str}`);
+    if(isLeft && ispressed[0])
+        elem.style.left = `${parseFloat(elem.style.left) - speed}rem`;
+    if(!isLeft && ispressed[2])
+        elem.style.left = `${parseFloat(elem.style.left) + speed}rem`;
+    if(isUp && ispressed[1])
+        elem.style.top = `${parseFloat(elem.style.top) - speed}rem`;
+    if(!isUp && ispressed[3])
+        elem.style.top = `${parseFloat(elem.style.top) + speed}rem`;
+}
+
+export const addMotion = function(ip, L, U, s, st) {
+    speed = s;
+    isLeft = L;
+    isUp = U;
+    str = st;
+    ispressed = ip;
+}
+//////////////////////////////////////////////////////////////////////////////////////
+
 
 let a, leg_1, c, leg_2, e, d_leg_11, d_leg_12, d_leg_21, d_leg_22;
+
 
 function setRunning(i) {
     // set the transformation
@@ -384,18 +409,19 @@ function setRunning(i) {
     d_leg_12.setAttribute('d', d2[i]);
     d_leg_21.setAttribute('d', d3[i]);
     d_leg_22.setAttribute('d', d4[i]);
-
 }
 
 let i = 0;
 function runPlayer() {
     setRunning(i);
+    // move coordinates
+    renderPixel(ispressed,isLeft, isUp,  str);
     i++;
     if(i > 12) i = 0;
 }
 
 
-export const runAnimation = function(ele, p) {
+export const runAnimation = function(ele) {
     a = ele.querySelector('.transform-1');
     leg_1 = ele.querySelector('.transform-2');
     c = ele.querySelector('.transform-3');
@@ -408,9 +434,14 @@ export const runAnimation = function(ele, p) {
     d_leg_22 = ele.querySelector('.leg-22');
 
     // Change the changing variable in animation
+    console.log('runAnimation')
     window[`${ele.className}animation`] = setInterval(runPlayer, 75);
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+// adjust the side of player
 
 export const stationaryAdjustPlayer = function(i) {
     // set the transformation

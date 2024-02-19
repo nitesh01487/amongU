@@ -13,19 +13,19 @@ const listOfPlayer = [p0, p1, p2, p3, p4];
 
 
 
-const controlMovement = function(from = 'down') {
+const controlAnimation = function(from = 'down') {
 
     // Check the movement validity
 
     // Move the player
-    
+    model.addMotion(p0.ispressed, p0.isLeft, p0.isUp, p0._speed, '0');
 
     // toggle side
     p0.setFaceDirection();
 
     // render animation
     if(window[`${p0._ele.className}animation`] == undefined && from == 'down')
-        p0._animation = model.runAnimation(p0._ele, p0.getCoordinate());
+        p0._animation = model.runAnimation(p0._ele);
 
     // set stationary direction after animation
     model.stationaryAdjustPlayer(0);
@@ -53,7 +53,7 @@ const init = function() {
     renderPlayer();
 
     // action for representing
-    p0.addRunningHandler(controlMovement);
+    p0.addRunningHandler(controlAnimation);
 };
 
 init();

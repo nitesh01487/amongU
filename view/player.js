@@ -5,7 +5,7 @@ export default class Player {
     _ele;
     _x_co;
     _y_co;
-    _speed = 0.1;
+    _speed = 0.5;
     _radius;
     _animation;
     isLeft = false;
@@ -40,6 +40,7 @@ export default class Player {
 
     addRunningHandler(handler) {
         window.addEventListener('keydown', (e)=> {
+            // document.querySelector('.actualPlayer0').style.left = `${parseFloat(document.querySelector('.actualPlayer0').style.left) + this._speed}rem`;
             if(!this.keyEnabledArray[e.keyCode]) return; // if same key pressed
             if((this.ispressed[0] && e.key == 'd') || (this.ispressed[2] && e.key == 'a')) return; // if a and d are pressed at same time
             if((this.ispressed[1] && e.key == 's') || (this.ispressed[3] && e.key == 'w')) return;
@@ -78,10 +79,12 @@ export default class Player {
                 console.log(this.isUp, this.ispressed)
             }
 
-            if(this.noOfButtonPressed == 0){
+            if(this.noOfButtonPressed <= 0){
+                this,this.noOfButtonPressed = 0;
                 clearInterval(window[`${this._ele.className}animation`]);
                 window[`${this._ele.className}animation`] = undefined;  
             }
+            // here handler is only called for setting the static image of imposter
             handler('up');
         })
     }
@@ -99,3 +102,4 @@ export default class Player {
     }
 
 }
+

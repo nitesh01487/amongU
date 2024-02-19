@@ -19,11 +19,14 @@ const controlMovement = function() {
     // Move the player
 
     // toggle side
-    
+    p0.setFaceDirection();
 
     // render animation
-    if(p0._animation == undefined)
-        p0._animation = model.runAnimation(p0._ele, p0._isLeft);
+    if(window[`${p0._ele.className}animation`] == undefined)
+        p0._animation = model.runAnimation(p0._ele, p0.getCoordinate());
+
+    // set stationary direction after animation
+    model.stationaryAdjustPlayer(0);
 }
 
 const renderPlayer = function() {

@@ -369,7 +369,7 @@ export { colors };
 
 //
 
-let a, leg_1, c, leg_2, e, d_leg_11, d_leg_12, d_leg_21, d_leg_22 ;
+let a, leg_1, c, leg_2, e, d_leg_11, d_leg_12, d_leg_21, d_leg_22;
 
 function setRunning(i) {
     // set the transformation
@@ -384,6 +384,7 @@ function setRunning(i) {
     d_leg_12.setAttribute('d', d2[i]);
     d_leg_21.setAttribute('d', d3[i]);
     d_leg_22.setAttribute('d', d4[i]);
+
 }
 
 let i = 0;
@@ -394,7 +395,7 @@ function runPlayer() {
 }
 
 
-export const runAnimation = function(ele, isLeft = true) {
+export const runAnimation = function(ele, p) {
     a = ele.querySelector('.transform-1');
     leg_1 = ele.querySelector('.transform-2');
     c = ele.querySelector('.transform-3');
@@ -407,5 +408,21 @@ export const runAnimation = function(ele, isLeft = true) {
     d_leg_22 = ele.querySelector('.leg-22');
 
     // Change the changing variable in animation
-    return setInterval(runPlayer, 75);
+    window[`${ele.className}animation`] = setInterval(runPlayer, 75);
+}
+
+
+export const stationaryAdjustPlayer = function(i) {
+    // set the transformation
+    a.style.transform     = `matrix(${x[i][0]}, ${x[i][1]}, ${x[i][2]}, ${x[i][3]}, ${x[i][4]}, ${x[i][5]})`;
+    leg_1.style.transform = `matrix(${y[i][0]}, ${y[i][1]}, ${y[i][2]}, ${y[i][3]}, ${y[i][4]}, ${y[i][5]})`;
+    c.style.transform     = `matrix(${z[i][0]}, ${z[i][1]}, ${z[i][2]}, ${z[i][3]}, ${z[i][4]}, ${z[i][5]})`;
+    leg_2.style.transform = `matrix(${s[i][0]}, ${s[i][1]}, ${s[i][2]}, ${s[i][3]}, ${s[i][4]}, ${s[i][5]})`;
+    e.style.transform     = `matrix(${t[i][0]}, ${t[i][1]}, ${t[i][2]}, ${t[i][3]}, ${t[i][4]}, ${t[i][5]})`;
+
+    // rewrite the drawable of legs
+    d_leg_11.setAttribute('d', d1[i]);
+    d_leg_12.setAttribute('d', d2[i]);
+    d_leg_21.setAttribute('d', d3[i]);
+    d_leg_22.setAttribute('d', d4[i]);
 }

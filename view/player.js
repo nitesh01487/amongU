@@ -19,10 +19,10 @@ export default class Player {
     }
 
     render(data, index) {
-        const body = document.querySelector('body');
-        body.insertAdjacentHTML('afterbegin', data);
+        const tag = document.querySelector('.background');
+        tag.insertAdjacentHTML('afterbegin', data);
         // get the _ele, _x_co, _y_co
-        this._ele = body.getElementsByClassName(`actualPlayer${index}`)[0];
+        this._ele = tag.getElementsByClassName(`actualPlayer${index}`)[0];
         this.setCoordinate();
 
     }
@@ -51,12 +51,12 @@ export default class Player {
             if(e.key == 'a' || e.key == 'd') {
                 this.isLeft = e.key == 'a' ? true : false;
                 this.ispressed[e.key == 'a' ? 0 : 2] = true;
-                console.log(this.isLeft, this.ispressed)
+                // console.log(this.isLeft, this.ispressed)
             }
             if(e.key == 'w' || e.key == 's') {
                 this.isUp = e.key == 'w' ? true : false;
                 this.ispressed[e.key == 'w' ? 1 : 3] = true;
-                console.log(this.isUp, this.ispressed)
+                // console.log(this.isUp, this.ispressed)
             }
             if(e.key == 'a' || e.key == 's' || e.key == 'd' || e.key == 'w')
                     handler();
@@ -72,11 +72,11 @@ export default class Player {
 
             if(e.key == 'a' || e.key == 'd') { // used left value true means left and false means right and isPressed value whether key is pressesd or not
                 this.ispressed[e.key == 'a' ? 0 : 2] = false;
-                console.log(this.isLeft, this.ispressed)
+                // console.log(this.isLeft, this.ispressed)
             }
             if(e.key == 'w' || e.key == 's') {
                 this.ispressed[e.key == 'w' ? 1 : 3] = false;
-                console.log(this.isUp, this.ispressed)
+                // console.log(this.isUp, this.ispressed)
             }
 
             if(this.noOfButtonPressed <= 0){
@@ -103,3 +103,4 @@ export default class Player {
 
 }
 
+// make other button disable

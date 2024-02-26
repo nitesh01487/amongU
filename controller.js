@@ -2,6 +2,9 @@
 
 import actualPlayer from "./view/actualPlayer.js";
 import * as model from './modelRun.js';
+import * as resize from './view/screen_size.js'
+
+model.shuffleColors();
 
 const p0 = new actualPlayer(model.colors[0]);
 const p1 = new actualPlayer(model.colors[1], 'bot');
@@ -10,6 +13,8 @@ const p3 = new actualPlayer(model.colors[3], 'bot');
 const p4 = new actualPlayer(model.colors[4], 'bot');
 
 const listOfPlayer = [p0, p1, p2, p3, p4];
+
+
 
 
 
@@ -32,6 +37,7 @@ const controlAnimation = function(from = 'down') {
 }
 
 const renderPlayer = function() {
+    console.log('hi')
     listOfPlayer.map((pl, i) => {
         const HTMLContent = model
                                 .renderPlayerHTMLContent(
@@ -54,18 +60,16 @@ const init = function() {
 
     // action for representing
     p0.addRunningHandler(controlAnimation);
+
+    // resize map
+    const allElement = [...document.querySelectorAll('.background > div')];
+    const aspectRatio = 1536 / 730;
+    resize.aspectRatioCorrection(aspectRatio, window.innerWidth, window.innerHeight);
+    allElement.map((el, i) => {
+        resize.reshift(`${el.className}`);
+        resize.resize(`${el.className}`);
+
+    })
 };
 
 init();
-
-
-
-// initial make it hidden : when map is introduced and start button is played
-
-
-
-// apply the function at controller
-// write the function in view (call all the function when event is called)
-// model me data persist karna
-
-

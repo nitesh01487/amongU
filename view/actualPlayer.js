@@ -11,7 +11,6 @@ class ActualPlayer extends Player {
     movePlayer() {
         
     }
-
 }
 
 export default ActualPlayer;

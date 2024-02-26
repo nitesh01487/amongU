@@ -164,7 +164,7 @@ export const positionValue = {
 export const renderPlayerHTMLContent = function(color, lt, tp, no) {
     const playerHTMLContent = `<div 
                                 class="actualPlayer${no}" 
-                                style="position: absolute; top: ${tp}rem; left: ${lt}rem;">
+                                style="position: absolute; top: ${tp}rem; left: ${lt}rem; z-index: 10">
                                     <svg
                                     class="imposter"
                                     xmlns="http://www.w3.org/2000/svg"
@@ -411,13 +411,13 @@ function setRunning(i) {
     d_leg_22.setAttribute('d', d4[i]);
 }
 
-let i = 0;
+let count = 0;
 function runPlayer() {
-    setRunning(i);
+    setRunning(count);
     // move coordinates
     renderPixel(ispressed,isLeft, isUp,  str);
-    i++;
-    if(i > 12) i = 0;
+    count++;
+    if(count > 12) count = 0;
 }
 
 
@@ -434,7 +434,6 @@ export const runAnimation = function(ele) {
     d_leg_22 = ele.querySelector('.leg-22');
 
     // Change the changing variable in animation
-    console.log('runAnimation')
     window[`${ele.className}animation`] = setInterval(runPlayer, 75);
 }
 

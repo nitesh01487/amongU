@@ -1,5 +1,8 @@
 // for run
 
+
+import * as coordinate from './mapCoordinateResize.js'
+
 const x = [
   [-3.18088, -0.162027, -0.162027, 3.18088, 309.858, 308.71], // for 1st image
   [-3.18088, -0.162027, -0.162027, 3.18088, 309.841, 279.551],
@@ -146,23 +149,23 @@ const d4 = [
 ];
 
 const colorValue = {
-    "red" : ['rgb(191,32,37)', 'rgb(119,17,57)'],
-    "blue" : ['rgb(57,78,161)', 'rgb(42,47,133)'],
-    "orange" : ['rgb(232,126,37)', 'rgb(176,65,1)'],
-    "pink" : ['rgb(208,95,162)', 'rgb(152,64,151)'],
-    "green" : ['rgb(96,236,15)', 'rgb(40,170,74)']
+  red: ["rgb(191,32,37)", "rgb(119,17,57)"],
+  blue: ["rgb(57,78,161)", "rgb(42,47,133)"],
+  orange: ["rgb(232,126,37)", "rgb(176,65,1)"],
+  pink: ["rgb(208,95,162)", "rgb(152,64,151)"],
+  green: ["rgb(96,236,15)", "rgb(40,170,74)"],
 };
 
-export const positionValue = {   
-    "0" : [46, 20], // x, y
-    "1" : [46, 10],
-    "2" : [61, 15],
-    "3" : [74, 10], 
-    "4" : [74, 20]
-}
+export const positionValue = {
+  0: [56, 20], // x, y
+  1: [56, 10],
+  2: [65, 15],
+  3: [74, 10],
+  4: [74, 20],
+};
 
-export const renderPlayerHTMLContent = function(color, lt, tp, no) {
-    const playerHTMLContent = `<div 
+export const renderPlayerHTMLContent = function (color, lt, tp, no) {
+  const playerHTMLContent = `<div 
                                 class="actualPlayer${no}" 
                                 style="position: absolute; top: ${tp}rem; left: ${lt}rem; z-index: 10">
                                     <svg
@@ -348,9 +351,8 @@ export const renderPlayerHTMLContent = function(color, lt, tp, no) {
                                     </svg>
                                 </div>`;
 
-    return playerHTMLContent;
-}
-
+  return playerHTMLContent;
+};
 
 // for colors of player
 let colors = ["red", "blue", "orange", "pink", "green"];
@@ -367,92 +369,219 @@ export { colors };
 
 
 
-let elem, speed,isLeft, isUp, str;
+/////////////////////////////////////////////////////////////////////////////////////all adjustment related to color, side, animation //////////////////////////
+
+
+let mapCoordinate = [ //
+    [[[735 , 297, 860, 833]]], // left path of cafeteria till navigation1 (R14)
+    [[[735 , 297, 960, 393]]], // left path of cafeteria connecting cafeteria left entrance(R15)
+    [[[735 , 650, 813, 1100]]], // Navigation1 path(R16)
+    [[[861, 80, 1360, 547]]], // cafetaria (R17)
+
+    [[[735 , 900, 890, 1100]]], // electrical up1(R18)
+    [[[735 , 945, 930, 1100]]], // electrical down1(R19)
+    [[[222 , 550, 390, 750]]], // weapon(R20)
+
+    [[[1036, 457, 1130, 729]]],   // (R1) for cafteria and curve-path junction
+    [[[200, 620, 1279, 729]]],  // (R2) long path from weapon to curve path
+    [[[1185 ,613, 1272, 935]]], // curve-pathway (R3)
+    [[[1185 ,708, 1435, 818]]], // curve-pathway (R4)
+    [[[1024 ,800, 1282, 936]]], // curve-pathway (R5)
+    [[[1024 ,800, 1130, 1270]]], // between curve-pathway and long straight horizontal path before medBed (R6)
+    [[[255 ,1180, 1400, 1270]]], // horizontal path before medBed (R7)
+    [[[1300 ,1180, 1400, 2660]]], // vertical path before medBed till last of map(R8)
+    [[[1214 ,1500, 1490, 1742]]], // med-Bed (R9)
+    [[[860 ,1968, 1400, 2080]]], // Polu-weapon and vertical path (R10)
+    [[[900 ,1750, 1110, 2120]]], // Polu-weapon (R11)
+    [[[620, 2504, 1400, 2660]]], // Navigation-weapon2 horizontal path (R12)
+    [[[620, 2404, 820, 2760]]], // Navigation-weapon2 horizontal path (R13)
+];
+// resize coordinates Restriction
+export const reMap = function() {
+    const aspectRatio = 1536 / 730;
+    coordinate.aspectRatio(aspectRatio, window.innerWidth, window.innerHeight);
+
+    mapCoordinate.map((elm) => {
+        elm.map((el) => {
+            el.map((e) => {
+                const val = coordinate.reTranslate(e[0], e[1], e[2], e[3]);
+                e[0] = val[0];
+                e[1] = val[1];
+                e[2] = val[2];
+                e[3] = val[3];
+            })
+        })
+    })
+}
+console.log(mapCoordinate);
+
+//////////////////////////////////////////////////////////////////////////
+
+let L = coordinate.convertVal(56) ;
+let T = coordinate.convertVal(71);
+
+function checkInside(ele, l, t) {
+    console.log(l + L, t + T)
+    console.log(ele)
+    if(!(ele[0] <= l && l <= ele[2])) return false;
+    if(!(ele[0] <= l + L && l + L <= ele[2])) return false;
+    if(!(ele[1] <= t && t <= ele[3])) return false;
+    if(!(ele[1] <= t + T && t + T <= ele[3])) return false;
+
+    return true;
+}
+
+
+const checkValidMovement = function(l, t) {
+    let flag = false;
+    mapCoordinate.map((elem) => {
+        // console.log(l, t)
+        // console.log(mapCoordinate[1][0])
+            flag = flag || checkInside(elem[0][0], l, t)
+
+            // if(elem[1]) {
+            //     elem[1].map((ele) => {
+
+            //     })
+            // }
+            if(flag == true) {
+                return;
+            }
+    })
+    return flag;
+}
+
+
+let elem, speed, isLeft, isUp, str;
 let ispressed;
 
+export const addMotion = function (ip, L, U, s, st) {
+  speed = coordinate.convertVal(s);
+  isLeft = L;
+  isUp = U;
+  str = st;
+  ispressed = ip;
+};
 
-function renderPixel(ispressed,isLeft, isUp,  str) {
-    elem = document.querySelector(`.actualPlayer${str}`);
-    if(isLeft && ispressed[0])
-        elem.style.left = `${parseFloat(elem.style.left) - speed}rem`;
-    if(!isLeft && ispressed[2])
-        elem.style.left = `${parseFloat(elem.style.left) + speed}rem`;
-    if(isUp && ispressed[1])
-        elem.style.top = `${parseFloat(elem.style.top) - speed}rem`;
-    if(!isUp && ispressed[3])
-        elem.style.top = `${parseFloat(elem.style.top) + speed}rem`;
+function scrollWindow(distance, duration) {
+  // Scroll 100 pixels vertically every 10 milliseconds for 1 second
+  // var distance = 100; // Change this value to adjust the scrolling distance
+  // var duration = 1000; // 1 second in milliseconds
+
+  var start = null;
+
+  function step(timestamp) {
+    if (!start) start = timestamp;
+    var progress = timestamp - start;
+    window.scrollBy(0, (distance / duration) * progress);
+    if (progress < duration) {
+      window.requestAnimationFrame(step);
+    }
+  }
+
+  window.requestAnimationFrame(step);
 }
 
-export const addMotion = function(ip, L, U, s, st) {
-    speed = s;
-    isLeft = L;
-    isUp = U;
-    str = st;
-    ispressed = ip;
+const actualL = coordinate.convertVal(14);
+const actualT = coordinate.convertVal(5)
+console.log(actualL, actualT)
+
+function renderPixel(ispressed, isLeft, isUp, str) {
+  elem = document.querySelector(`.actualPlayer${str}`);
+  const eleLeft = parseFloat(elem.style.left); // in pixel
+  const eleTop = parseFloat(elem.style.top); // in pixel
+//   console.log(eleLeft, eleTop)
+//   console.log(eleLeft * 16 - actualL - speed)
+//   console.log(eleTop * 16 - actualT - speed)
+  if (isLeft && ispressed[0] && checkValidMovement((eleLeft - speed) * 16 + actualL, eleTop * 16 + actualT))
+    elem.style.left = `${eleLeft - speed}rem`;
+  if (!isLeft && ispressed[2] && checkValidMovement((eleLeft + speed) * 16 + actualL, eleTop * 16 + actualT))
+    elem.style.left = `${eleLeft + speed}rem`;
+  if (isUp && ispressed[1] && checkValidMovement(eleLeft * 16 + actualL, (eleTop - speed) * 16 + actualT)) {
+    scrollWindow(-speed * 16, 20);
+    elem.style.top = `${eleTop - speed}rem`;
+  }
+  if (!isUp && ispressed[3] && checkValidMovement(eleLeft * 16 + actualL, (eleTop + speed) * 16 + actualT)) {
+    scrollWindow(speed * 16, 20);
+    elem.style.top = `${eleTop + speed}rem`;
+  }
 }
+
 //////////////////////////////////////////////////////////////////////////////////////
-
 
 let a, leg_1, c, leg_2, e, d_leg_11, d_leg_12, d_leg_21, d_leg_22;
 
-
 function setRunning(i) {
-    // set the transformation
-    a.style.transform     = `matrix(${x[i][0]}, ${x[i][1]}, ${x[i][2]}, ${x[i][3]}, ${x[i][4]}, ${x[i][5]})`;
-    leg_1.style.transform = `matrix(${y[i][0]}, ${y[i][1]}, ${y[i][2]}, ${y[i][3]}, ${y[i][4]}, ${y[i][5]})`;
-    c.style.transform     = `matrix(${z[i][0]}, ${z[i][1]}, ${z[i][2]}, ${z[i][3]}, ${z[i][4]}, ${z[i][5]})`;
-    leg_2.style.transform = `matrix(${s[i][0]}, ${s[i][1]}, ${s[i][2]}, ${s[i][3]}, ${s[i][4]}, ${s[i][5]})`;
-    e.style.transform     = `matrix(${t[i][0]}, ${t[i][1]}, ${t[i][2]}, ${t[i][3]}, ${t[i][4]}, ${t[i][5]})`;
+  // set the transformation
+  a.style.transform = `matrix(${x[i][0]}, ${x[i][1]}, ${x[i][2]}, ${x[i][3]}, ${x[i][4]}, ${x[i][5]})`;
+  leg_1.style.transform = `matrix(${y[i][0]}, ${y[i][1]}, ${y[i][2]}, ${y[i][3]}, ${y[i][4]}, ${y[i][5]})`;
+  c.style.transform = `matrix(${z[i][0]}, ${z[i][1]}, ${z[i][2]}, ${z[i][3]}, ${z[i][4]}, ${z[i][5]})`;
+  leg_2.style.transform = `matrix(${s[i][0]}, ${s[i][1]}, ${s[i][2]}, ${s[i][3]}, ${s[i][4]}, ${s[i][5]})`;
+  e.style.transform = `matrix(${t[i][0]}, ${t[i][1]}, ${t[i][2]}, ${t[i][3]}, ${t[i][4]}, ${t[i][5]})`;
 
-    // rewrite the drawable of legs
-    d_leg_11.setAttribute('d', d1[i]);
-    d_leg_12.setAttribute('d', d2[i]);
-    d_leg_21.setAttribute('d', d3[i]);
-    d_leg_22.setAttribute('d', d4[i]);
+  // rewrite the drawable of legs
+  d_leg_11.setAttribute("d", d1[i]);
+  d_leg_12.setAttribute("d", d2[i]);
+  d_leg_21.setAttribute("d", d3[i]);
+  d_leg_22.setAttribute("d", d4[i]);
 }
 
 let count = 0;
 function runPlayer() {
-    setRunning(count);
-    // move coordinates
-    renderPixel(ispressed,isLeft, isUp,  str);
-    count++;
-    if(count > 12) count = 0;
+  setRunning(count);
+  // move coordinates
+  renderPixel(ispressed, isLeft, isUp, str);
+  count++;
+  if (count > 12) count = 0;
 }
 
+export const runAnimation = function (ele) {
+  // rearrage camera according to main player
+  window.scrollTo({
+    left: 0,
+    top: parseFloat(ele.style.top) * 16 - window.innerHeight / 2,
+  });
 
-export const runAnimation = function(ele) {
-    a = ele.querySelector('.transform-1');
-    leg_1 = ele.querySelector('.transform-2');
-    c = ele.querySelector('.transform-3');
-    leg_2 = ele.querySelector('.transform-4');
-    e = ele.querySelector('.transform-5');
+  a = ele.querySelector(".transform-1");
+  leg_1 = ele.querySelector(".transform-2");
+  c = ele.querySelector(".transform-3");
+  leg_2 = ele.querySelector(".transform-4");
+  e = ele.querySelector(".transform-5");
 
-    d_leg_11 = ele.querySelector('.leg-11');
-    d_leg_12 = ele.querySelector('.leg-12');
-    d_leg_21 = ele.querySelector('.leg-21');
-    d_leg_22 = ele.querySelector('.leg-22');
+  d_leg_11 = ele.querySelector(".leg-11");
+  d_leg_12 = ele.querySelector(".leg-12");
+  d_leg_21 = ele.querySelector(".leg-21");
+  d_leg_22 = ele.querySelector(".leg-22");
 
-    // Change the changing variable in animation
-    window[`${ele.className}animation`] = setInterval(runPlayer, 75);
-}
+  // Change the changing variable in animation
+  window[`${ele.className}animation`] = setInterval(runPlayer, 75);
+};
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
 // adjust the side of player
 
-export const stationaryAdjustPlayer = function(i) {
-    // set the transformation
-    a.style.transform     = `matrix(${x[i][0]}, ${x[i][1]}, ${x[i][2]}, ${x[i][3]}, ${x[i][4]}, ${x[i][5]})`;
-    leg_1.style.transform = `matrix(${y[i][0]}, ${y[i][1]}, ${y[i][2]}, ${y[i][3]}, ${y[i][4]}, ${y[i][5]})`;
-    c.style.transform     = `matrix(${z[i][0]}, ${z[i][1]}, ${z[i][2]}, ${z[i][3]}, ${z[i][4]}, ${z[i][5]})`;
-    leg_2.style.transform = `matrix(${s[i][0]}, ${s[i][1]}, ${s[i][2]}, ${s[i][3]}, ${s[i][4]}, ${s[i][5]})`;
-    e.style.transform     = `matrix(${t[i][0]}, ${t[i][1]}, ${t[i][2]}, ${t[i][3]}, ${t[i][4]}, ${t[i][5]})`;
+export const stationaryAdjustPlayer = function (i, ele) {
+  a = ele.querySelector(".transform-1");
+  leg_1 = ele.querySelector(".transform-2");
+  c = ele.querySelector(".transform-3");
+  leg_2 = ele.querySelector(".transform-4");
+  e = ele.querySelector(".transform-5");
 
-    // rewrite the drawable of legs
-    d_leg_11.setAttribute('d', d1[i]);
-    d_leg_12.setAttribute('d', d2[i]);
-    d_leg_21.setAttribute('d', d3[i]);
-    d_leg_22.setAttribute('d', d4[i]);
-}
+  d_leg_11 = ele.querySelector(".leg-11");
+  d_leg_12 = ele.querySelector(".leg-12");
+  d_leg_21 = ele.querySelector(".leg-21");
+  d_leg_22 = ele.querySelector(".leg-22");
+  // set the transformation
+  a.style.transform = `matrix(${x[i][0]}, ${x[i][1]}, ${x[i][2]}, ${x[i][3]}, ${x[i][4]}, ${x[i][5]})`;
+  leg_1.style.transform = `matrix(${y[i][0]}, ${y[i][1]}, ${y[i][2]}, ${y[i][3]}, ${y[i][4]}, ${y[i][5]})`;
+  c.style.transform = `matrix(${z[i][0]}, ${z[i][1]}, ${z[i][2]}, ${z[i][3]}, ${z[i][4]}, ${z[i][5]})`;
+  leg_2.style.transform = `matrix(${s[i][0]}, ${s[i][1]}, ${s[i][2]}, ${s[i][3]}, ${s[i][4]}, ${s[i][5]})`;
+  e.style.transform = `matrix(${t[i][0]}, ${t[i][1]}, ${t[i][2]}, ${t[i][3]}, ${t[i][4]}, ${t[i][5]})`;
+
+  // rewrite the drawable of legs
+  d_leg_11.setAttribute("d", d1[i]);
+  d_leg_12.setAttribute("d", d2[i]);
+  d_leg_21.setAttribute("d", d3[i]);
+  d_leg_22.setAttribute("d", d4[i]);
+};

@@ -2,7 +2,7 @@
 
 import actualPlayer from "./view/actualPlayer.js";
 import * as model from './modelRun.js';
-import * as resize from './view/screen_size.js'
+import * as resize from './screen_size.js'
 
 model.shuffleColors();
 
@@ -33,7 +33,7 @@ const controlAnimation = function(from = 'down') {
         p0._animation = model.runAnimation(p0._ele);
 
     // set stationary direction after animation
-    model.stationaryAdjustPlayer(0);
+    model.stationaryAdjustPlayer(0, p0._ele);
 }
 
 const renderPlayer = function() {
@@ -68,8 +68,37 @@ const init = function() {
     allElement.map((el, i) => {
         resize.reshift(`${el.className}`);
         resize.resize(`${el.className}`);
-
     })
+
 };
 
 init();
+
+
+const array = [];
+const divTag = document.querySelectorAll('.background > div');
+const tags = [...divTag];
+console.log(tags)
+
+let c = 0;
+tags.map((el) => {
+    if(c > 4) {
+    let arr = [];
+    arr.push(el.offsetLeft );
+    arr.push(el.offsetTop );
+    arr.push(el.offsetLeft  + el.offsetWidth);
+    arr.push(el.offsetTop + el.offsetHeight);
+    array.push(arr);
+    }
+    c++;
+})
+
+console.log(array)
+
+document.querySelector('body').addEventListener('click', function(e) {
+    console.log(e)
+})
+
+
+
+model.reMap();

@@ -3,7 +3,9 @@
 import actualPlayer from "./view/actualPlayer.js";
 import * as model from './modelRun.js';
 import * as resize from './screen_size.js'
+import * as animationStart from './animation.js';
 
+animationStart.callAnimation();
 model.shuffleColors();
 
 const p0 = new actualPlayer(model.colors[0]);
@@ -94,11 +96,34 @@ tags.map((el) => {
 })
 
 console.log(array)
+model.reMap();
 
-document.querySelector('body').addEventListener('click', function(e) {
-    console.log(e)
+const terminal = document.querySelector('.terminal');
+const tap = document.querySelector('.tapSt');
+const top = document.querySelector('.top');
+const bottom = document.querySelector('.bottom');
+
+const term = [tap, terminal];
+console.log(tap)
+
+term.map((e) => {
+    e.addEventListener('click', function() {
+        if(top.style.transform == '') {
+            top.style.transform= 'translate3d(0, 0, 0) rotateX(0deg) scale(1.5, 1.5)';
+            bottom.style.transform = 'translate3d(0, 3vh, 0) rotateX(-90deg) scale(1.5, 1.5)';
+            tap.style.display = 'none'
+        }
+        else  {
+            top.style.transform = '';
+            bottom.style.transform = '';
+            tap.style.display = 'block' // one bug
+        }
+    })
 })
 
+const stopAnimation = document.querySelector('.stopanimation');
+console.log(stopAnimation)
 
-
-model.reMap();
+stopAnimation.addEventListener('click', function() {
+    console.log(document.querySelector('canvas'))
+})

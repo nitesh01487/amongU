@@ -1,0 +1,268 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+.back-Anima {
+  background-color: black;
+  z-index: 20;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  height: 100vh;
+  width: 100vw;
+  z-index: 20;
+  display: none;
+}
+* {
+  font-family: "Amatic SC", "sans-serif";
+  color: white;
+  font-weight: 300;
+  z-index: 100;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+canvas {
+  background-color: black;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+.backgroundContext {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  height: 100vh;
+  width: 100vw;
+}
+.main-menu {
+  width: 35%;
+  margin: auto;
+  height: 100%;
+}
+.amongU-image {
+  width: 90%;
+  margin: 15px auto;
+  height: 18%;
+}
+.amongU-image img {
+  height: 100%;
+  width: 100%;
+}
+.amonngU-laptop-animation {
+  height: 40%;
+}
+.amongU-Button {
+  height: 28%;
+  font-size: 0;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1.5fr 1fr;
+}
+.amongU-Button > div {
+  margin: 10px;
+  border: 4px solid white;
+  border-radius: 15px;
+  background-color: black;
+
+  justify-content: center;
+  text-align: center;
+}
+.amongU-Button > div:hover {
+  cursor: pointer;
+}
+.play,
+.terminal {
+  font-size: calc(3.5vh + 2.5vw);
+}
+.howToPlay,
+.stopanimation {
+  font-size: calc(2vh + 1.5vw);
+}
+
+/* Laptop animation */
+.amonngU-laptop-animation {
+  margin: calc(1vh + 2vw);
+}
+
+.container {
+  text-align: center;
+}
+
+.mockup {
+  display: inline-block;
+  position: relative;
+  z-index: 3;
+  left: calc(1vw + 1vh);
+  text-align: center;
+  font-size: 0;
+  perspective: 2400px;
+  perspective-origin: 50% 100%;
+  opacity: 0;
+  transition: 500ms opacity;
+}
+
+.mockup.loaded {
+  opacity: 1;
+}
+
+.mockup .part .top,
+.mockup .part .bottom {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.mockup .part.top {
+  transform: translate3d(0, 0, 0) rotateX(-90deg);
+}
+/* .top{
+        height: 277px;
+      } */
+
+/* .mockup:hover .part.top {
+  transform: translate3d(0, 0, 0) rotateX(0deg) scale(1.5, 1.5);
+} */
+
+.mockup .part {
+  display: inline-block;
+  position: relative;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  transform-origin: 50% 100%;
+  transition: 900ms;
+}
+
+.top {
+    z-index: 3;
+}
+.bottom {
+    z-index: 4;
+}
+.tapSt {
+    z-index: 5;
+}
+
+.mockup.opened .part .top {
+  transform: translate3d(0, 0, -6px) rotateX(90deg) scale(1, 1);
+}
+
+.mockup .part .top {
+  transform-origin: 50% 0;
+  transform: translate3d(0, 0, 0px) rotateX(90deg);
+  transition: 900ms;
+}
+
+.mockup img {
+  display: block;
+  max-width: 100%;
+  backface-visibility: hidden;
+}
+
+.mockup .part .cover {
+  position: relative;
+}
+
+.mockup img {
+  display: block;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 92%;
+  border-radius: 6px;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 1px);
+}
+
+.mockup .part.bottom {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate3d(0, 0, 0) rotateX(-90deg);
+}
+
+.mockup .part .bottom {
+  transform-origin: 50% 0;
+  transform: translate3d(0, 0, 0) rotateX(90deg);
+}
+
+.mockup:hover .bottom.top.part {
+  transform: translate3d(0, 0, 0) rotateX(0deg) scale(1.5, 1.5);
+}
+
+/* contact  */
+.contact-left {
+  position: absolute;
+  left: calc(1vw + 1vh);
+  top: calc(1vw + 1vh);
+  height: calc(7vw + 15vh);
+  width: calc(3vw + 8vh);
+}
+
+.contact-left {
+  height: 53vh;
+  width: 6vw;
+}
+
+.mail,
+.linkedIn,
+.twitter,
+.gitHub {
+  position: relative;
+  width: calc(4vw);
+  height: calc(4vw);
+  margin: 1.5vw 0.5vw;
+  padding: 0.25vw;
+  border: 0.25vw solid white;
+  border-radius: 37px;
+}
+.mail a,
+.linkedIn a,
+.twitter a,
+.gitHub a {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.mail {
+  border-radius: calc(2vh);
+}
+
+.linkedIn,
+.twitter,
+.gitHub {
+  border-radius: 41px;
+}
+
+.mail img {
+  height: 100%;
+  width: 100%;
+  border-radius: calc(2vh);
+}
+.linkedIn img {
+  height: 100%;
+  width: 100%;
+  border-radius: 37px;
+}
+.twitter img {
+  height: 100%;
+  width: 100%;
+  border-radius: 37px;
+}
+.gitHub img {
+  height: 100%;
+  width: 100%;
+  border-radius: 37px;
+}
+.tapSt {
+  position: absolute;
+  font-size: 16vh;
+  font-weight: 800;
+  top: 35vh;
+  left: 36vw;
+  cursor: pointer;
+}

@@ -99,13 +99,15 @@ export const callAnimation = function () {
 
     // Animation loop
     function animate() {
-      requestAnimationFrame(animate);
+      window['animate'] = requestAnimationFrame(animate);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       stars.forEach((star) => {
         star.update();
         star.draw();
       });
+
+      
 
       particles.forEach(function (particle) {
         ctx.save(); // Save current state

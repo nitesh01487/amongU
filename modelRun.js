@@ -413,7 +413,7 @@ export const reMap = function() {
         })
     })
 }
-console.log(mapCoordinate);
+// console.log(mapCoordinate);
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -421,8 +421,6 @@ let L = coordinate.convertVal(56) ;
 let T = coordinate.convertVal(71);
 
 function checkInside(ele, l, t) {
-    console.log(l + L, t + T)
-    console.log(ele)
     if(!(ele[0] <= l && l <= ele[2])) return false;
     if(!(ele[0] <= l + L && l + L <= ele[2])) return false;
     if(!(ele[1] <= t && t <= ele[3])) return false;
@@ -484,7 +482,7 @@ function scrollWindow(distance, duration) {
 
 const actualL = coordinate.convertVal(14);
 const actualT = coordinate.convertVal(5)
-console.log(actualL, actualT)
+// console.log(actualL, actualT)
 
 function renderPixel(ispressed, isLeft, isUp, str) {
   elem = document.querySelector(`.actualPlayer${str}`);

@@ -4,6 +4,7 @@ import actualPlayer from "./view/actualPlayer.js";
 import * as model from './modelRun.js';
 import * as resize from './screen_size.js'
 import * as animationStart from './animation.js';
+import * as terminalControlJS from './controlTerminal.js';
 
 animationStart.callAnimation();
 model.shuffleColors();
@@ -39,7 +40,7 @@ const controlAnimation = function(from = 'down') {
 }
 
 const renderPlayer = function() {
-    console.log('hi')
+    // console.log('hi')
     listOfPlayer.map((pl, i) => {
         const HTMLContent = model
                                 .renderPlayerHTMLContent(
@@ -74,13 +75,12 @@ const init = function() {
 
 };
 
-init();
 
 
 const array = [];
 const divTag = document.querySelectorAll('.background > div');
 const tags = [...divTag];
-console.log(tags)
+// console.log(tags)
 
 let c = 0;
 tags.map((el) => {
@@ -95,35 +95,145 @@ tags.map((el) => {
     c++;
 })
 
-console.log(array)
+// console.log(array)
 model.reMap();
 
+// terminal Control /////////////////////////////////////////////////////////////////////////////////////////////////////
 const terminal = document.querySelector('.terminal');
 const tap = document.querySelector('.tapSt');
 const top = document.querySelector('.top');
 const bottom = document.querySelector('.bottom');
+const terminalControl = document.querySelector('#chat-container');
+const textValue = document.querySelector('#user-input');
 
 const term = [tap, terminal];
-console.log(tap)
+
+function playGame() {
+    canva.style.display = 'none';
+    background.style.display = 'none';
+    mainGameArea.style.display = 'block';
+    init();
+}
+
+var start = 'start'
+const linklocation = {
+    'e-cart' : 'https://e-cart-v-ecom.onrender.com',
+    'natours' : 'https://natours-app0-ilr8.onrender.com', 
+    'chat-app' : 'https://chat-app-nitesh.onrender.com'
+}
+
+// terminal Control
+const actionTerminal = function() {
+    terminalControl.style.display = 'block';
+    if(start === 'start') { // for first time
+        console.log('start')
+        terminalControlJS.sendMessage(start);
+        textValue.addEventListener('keydown', function(e) {
+            if(e.key === 'Enter') {
+                var userInput = document
+                .getElementById("user-input")
+                .value.toLowerCase()
+                .split('>')[1]
+                .trim();
+                console.log(userInput)
+    
+                if(userInput === 'play') {
+                    playGame();
+                } else if(userInput === 'close') { // bug
+                    closeTerminal();
+                    textValue.value = 'you> '
+                } else if(userInput === 'e-cart'|| userInput === 'natours' || userInput === 'chat-app') {
+                    location.href = `${linklocation[userInput]}`
+                } else {
+                    terminalControlJS.sendMessage();
+                }
+                // textValue.value = '';
+                textValue.focus();
+            }
+        })
+    }
+    else { // for second
+        textValue.focus();
+    }
+    start = '';
+    
+}
+
+// for focusing on textArea
+terminalControl.addEventListener('click', function() { // for focusing on textArea
+    textValue.focus();
+})
+
+var timeoutId;
+
+function openTerminal() {
+    top.style.transform= 'translate3d(0, 0, 0) rotateX(0deg) scale(1.5, 1.5)';
+    bottom.style.transform = 'translate3d(0, 3vh, 0) rotateX(-90deg) scale(1.5, 1.5)';
+    if(tap.classList.contains('fadeIn'))
+        tap.classList.remove('fadeIn');
+    tap.classList.toggle('fadeOut');
+
+    // enable the terminal action
+    timeoutId = setTimeout(actionTerminal, 1000);
+}
+
+function closeTerminal() {
+    top.style.transform = '';
+    bottom.style.transform = '';
+    tap.style.display = 'block' // one bug
+    if(tap.classList.contains('fadeOut'))
+        tap.classList.remove('fadeOut');
+    tap.classList.toggle('fadeIn');
+    // for content of terminal
+    terminalControl.style.display = 'none';
+
+    clearTimeout(timeoutId);
+}
 
 term.map((e) => {
     e.addEventListener('click', function() {
-        if(top.style.transform == '') {
-            top.style.transform= 'translate3d(0, 0, 0) rotateX(0deg) scale(1.5, 1.5)';
-            bottom.style.transform = 'translate3d(0, 3vh, 0) rotateX(-90deg) scale(1.5, 1.5)';
-            tap.style.display = 'none'
+        if(top.style.transform == '') { // to open terminal
+            openTerminal();
         }
-        else  {
-            top.style.transform = '';
-            bottom.style.transform = '';
-            tap.style.display = 'block' // one bug
+        else  { // to close terminal
+            closeTerminal();
         }
     })
 })
 
 const stopAnimation = document.querySelector('.stopanimation');
-console.log(stopAnimation)
 
 stopAnimation.addEventListener('click', function() {
-    console.log(document.querySelector('canvas'))
-})
+        cancelAnimationFrame(window['animate']);
+});
+
+const playButton = document.querySelector('.play');
+
+const canva = document.querySelector('#myCanvas');
+const background = document.querySelector('.backgroundContext');
+const mainGameArea = document.querySelector('.back-Anima')
+
+playButton.addEventListener('click', playGame)
+
+// for popup message box /////////////////////////////////////////////////////////////////////////////////
+const openButton = document.querySelector('.howToPlay');
+const popup = document.getElementById("popup");
+const closeButton = document.getElementById("closeButton");
+
+// Open popup when the open button is clicked
+openButton.addEventListener("click", function() {
+  popup.style.display = "block";
+  // Focus on the close button when the popup is opened
+  closeButton.focus();
+});
+
+// Close popup when the close button is clicked
+closeButton.addEventListener("click", function() {
+  popup.style.display = "none";
+});
+
+// Add blur event listener to the close button
+closeButton.addEventListener("blur", function() {
+  // Close the popup when the close button loses focus
+  popup.style.display = "none";
+});

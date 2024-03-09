@@ -82,15 +82,51 @@
   
   .close {
     position: absolute;
-    top: 5px;
-    right: 10px;
+    top: 1vw;
+    right: 1vw;
     cursor: pointer;
     color: black;
     font-family: "VT323", monospace;
+    font-size: 2vw;
+    height: 2vw;
+    width: 2vw;
   }
   
   .cross {
     color: black;
     font-family: "VT323", monospace;
+    height: 4vh;
+    font-size: 3vh;
   }
+  
+  .controls,
+  .control,
+  .movement {
+    color: black;
+    font-family: "VT323", monospace;
+    text-align: left;
+  }
+
+  .controls {
+    padding: 0vw 2vw;
+  }
+  .control {
+    font-size: 3vh;
+    height: 3vh;
+  }
+  .movement {
+    font-size: 3vh;
+    height: 3vh;
+    padding: 0.2vh 0vh;
+  }
+  .popup-message {
+    font-size: 3vh;
+    height: 3vh;
+    padding: 0.2vh 0vh;
+    color: black;
+    font-family: "VT323", monospace;
+    text-align: left;
+    padding: 1vw 1vh;
+  }
+
   

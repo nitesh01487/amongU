@@ -5,6 +5,8 @@ import * as model from './modelRun.js';
 import * as resize from './screen_size.js'
 import * as animationStart from './animation.js';
 import * as terminalControlJS from './controlTerminal.js';
+import * as modelBotRun from './modelBotRun.js';
+import Player from "./view/player.js";
 
 animationStart.callAnimation();
 model.shuffleColors();
@@ -113,6 +115,7 @@ function playGame() {
     background.style.display = 'none';
     mainGameArea.style.display = 'block';
     init();
+    makeBotMovement();
 }
 
 var start = 'start'
@@ -217,14 +220,19 @@ playButton.addEventListener('click', playGame)
 
 // for popup message box /////////////////////////////////////////////////////////////////////////////////
 const openButton = document.querySelector('.howToPlay');
-const popup = document.getElementById("popup");
+const popup = document.querySelector(".popup");
+popup.style.display = 'none'
 const closeButton = document.getElementById("closeButton");
 
 // Open popup when the open button is clicked
 openButton.addEventListener("click", function() {
-  popup.style.display = "block";
-  // Focus on the close button when the popup is opened
-  closeButton.focus();
+  if(popup.style.display == 'none') {
+    popup.style.display = "block";
+    // Focus on the close button when the popup is opened
+    closeButton.focus();
+  } else {
+    popup.style.display = 'none';
+  }
 });
 
 // Close popup when the close button is clicked
@@ -233,7 +241,19 @@ closeButton.addEventListener("click", function() {
 });
 
 // Add blur event listener to the close button
-closeButton.addEventListener("blur", function() {
+popup.addEventListener("blur", function() {
   // Close the popup when the close button loses focus
-  popup.style.display = "none";
+  console.log('blur event fired')
+  popup.style.display = 'none';
 });
+
+
+const allBot = [...listOfPlayer.slice(1)];
+function makeBotMovement() {
+    console.log(allBot)
+    modelBotRun.runAllBot(allBot);
+}
+
+window.addEventListener('click', function(e){
+    console.log(e)
+})

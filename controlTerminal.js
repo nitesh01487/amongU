@@ -4,7 +4,7 @@ const terminalCommand = {
     "Hi I am Nitesh Kumar",
     "To know more about me, play amongU game",
     "for playing type : play",
-    "for command info type : cmd",
+    "for command info. type : cmd",
   ],
   cmd: [
     "Various commands :",

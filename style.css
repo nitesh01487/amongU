@@ -215,3 +215,44 @@ html {
     height: 100%;
     width: 100%;
 }
+
+.backToAnimation {
+    height: 4rem;
+    width: 4rem;
+    position: relative;
+    cursor: pointer;
+    border-radius: 5rem;
+    margin: 1rem;
+    display: inline-block;
+}
+
+.backToAnimation img{
+    height: 100%;
+    width: 100%;
+    border-radius: 5rem;
+}
+.help {
+    height: 4rem;
+    width: 4rem;
+    position: relative;
+    cursor: pointer;
+    border-radius: 5rem;
+    margin: 1rem;
+    display: inline-block;
+}
+
+.help img{
+    height: 100%;
+    width: 100%;
+    border-radius: 5rem;
+}
+
+.buttonBack {
+    position: sticky;
+    top: 1rem;
+    left: 1rem;
+    display: inline-block;
+    z-index: 5;
+    height: 6rem;
+    width: 12.5rem;
+}

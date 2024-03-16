@@ -1,0 +1,182 @@
+
+.skill {
+    position: absolute;
+    /* height: 5vw;
+    width: 31vw; */
+    margin: 0.5vw;
+    display: inline-block;
+    font-family: "VT323", monospace;
+    font-size: calc(1vw + 0.8vw);
+    border-radius: calc(0.2vw + 0.2vw);
+    border: 3px solid white;
+    padding: 0.5vw;
+    /* width: fit-content; */
+    display: flex;
+    text-wrap: nowrap;
+    height: 1rem;
+    display: flex;
+    align-items: center;
+    /* height: 2rem; */
+}
+
+.intro-game {
+    display: block;
+    width: fit-content;
+    margin: 0.5vw auto;
+    justify-content: center;
+    text-align: center;
+    left: 20.9375rem;
+    top: 8.375rem;
+    align-items: center;
+    /* height: 2.375rem;
+    width: 20.375rem; */
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.html{
+    top: 281px;
+    left: 290px;
+    /* width: 2.125rem;
+    height: 2.125rem; */
+}
+
+.css{
+    top: 16.6875rem;
+    left: 26.5625rem;
+    /* width: 2.125rem;
+    height: 2.125rem; */
+}
+
+.javascript{
+    top: 263px;
+    left: 566.1px;
+    /* width: fit-content;
+    height: 2.125rem; */
+}
+
+.react{
+    top: 389px;
+    left: 499.5px;
+    /* height: 2.125rem; */
+}
+
+.skill1 {
+    left: 26.3125rem;
+    top: 21.25rem;
+    border: 4px solid border;
+    font-size: calc(1.3vw + 0.9vw);
+    /* height: 2.125rem; */
+}
+
+.nodeJS {
+    top: 1600px;
+    left: 900px;
+    /* height: 2.125rem; */
+}
+
+.ExpressJS {
+    top: 1376px;
+    left: 1076px;
+    /* height: 2.125rem; */
+}
+
+.mongoDB {
+    top: 1512px;
+    left: 850px;
+    /* height: 2.125rem; */
+}
+
+.Restful {
+    top: 1450px;
+    left: 995px;
+}
+
+
+.skill2 {
+    top: 1544px;
+    left: 1038px;
+    border: 4px solid border;
+    font-size: calc(1.3vw + 0.9vw);
+}
+
+.project {
+    position: absolute;
+    top: 110rem;
+    left: 3rem;
+    height: 30rem;
+    width: 40rem;
+    border: 3px solid white;
+    border-radius: 1.32vw;
+}
+
+.projects-name{
+    margin: 0.6vw;
+    padding: 0.5vw;
+    position: absolute;
+    height: 3.9375rem;
+    width: 36.5rem;
+    left: 2.7rem;
+    top: 109.9rem;
+    /* width: 94%; */
+    font-family: "VT323", monospace;
+    font-size: calc(1vw + 1.8vw);
+    border: 3px solid white;
+    border-radius: 0.66vw;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.project-img {
+    margin: 0.6vw;
+    padding: 0.5vw;
+    position: absolute;
+    height: 19.4rem;
+    width: 36.5rem;
+    left: 2.7rem;
+    top: 117rem; 
+    /* width: 38rem; */
+    font-family: "VT323", monospace;
+    font-size: calc(1vw + 1.8vw);
+    border: 3px solid white;
+    border-radius: 0.66vw;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}
+
+.project-img img{
+    height: 100%;
+    width: 100%;
+}
+
+.press-enter {
+    position: absolute;
+    height: 5rem;
+    width: 8rem;
+    left: 60rem;
+    top: 120rem;
+    text-wrap: nowrap;
+    font-family: "VT323", monospace;
+    font-size: calc(0.5vw + 1vw);
+    color: orangered;
+}
+
+.press-o {
+    position: absolute;
+    height: 5rem;
+    width: 8rem;
+    left: 60rem;
+    top: 120rem;
+    align-items: end;
+    text-wrap: nowrap;
+    font-family: "VT323", monospace;
+    font-size: calc(0.5vw + 1vw);
+    color: orangered;
+    display: flex;
+    vertical-align: bottom;
+}

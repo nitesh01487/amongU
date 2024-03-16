@@ -6,7 +6,7 @@ export const aspectRatioCorrection = function(aspectRatio, w, h) {
 
 export const reshift = function(classNm) {
     const element = document.querySelector(`.${classNm}`);
-
+    // console.log(element)
     // screen
     let originalScreenWidth = 1536 / 16; // in rem
     let originalScreenHeight = (730 - heightCorrection) / 16;

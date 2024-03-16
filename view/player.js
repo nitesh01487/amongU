@@ -40,6 +40,7 @@ export default class Player {
 
     addRunningHandler(handler) {
         window.addEventListener('keydown', (e)=> {
+            if(!(e.key === 'a' || e.key === 's' || e.key === 'd' || e.key === 'w' )) return;
             // document.querySelector('.actualPlayer0').style.left = `${parseFloat(document.querySelector('.actualPlayer0').style.left) + this._speed}rem`;
             if(!this.keyEnabledArray[e.keyCode]) return; // if same key pressed
             if((this.ispressed[0] && e.key == 'd') || (this.ispressed[2] && e.key == 'a')) return; // if a and d are pressed at same time
@@ -63,6 +64,7 @@ export default class Player {
         });
 
         window.addEventListener('keyup', (e) => {  // logic sequence is very important in this
+            if(!(e.key === 'a' || e.key === 's' || e.key === 'd' || e.key === 'w' )) return;
 
             if((this.ispressed[0] && e.key == 'd') || (this.ispressed[2] && e.key == 'a')) return;
             if((this.ispressed[1] && e.key == 's') || (this.ispressed[3] && e.key == 'w')) return;

@@ -75,11 +75,19 @@ canvas {
 }
 .play,
 .terminal {
+  display: flex;
   font-size: calc(3.5vh + 2.5vw);
+  text-align: center;
+  justify-content: center;
+  align-items: center;
 }
 .howToPlay,
 .stopanimation {
+  display: flex;
   font-size: calc(2vh + 1.5vw);
+  text-align: center;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Laptop animation */
@@ -195,7 +203,7 @@ canvas {
   position: relative;
 }
 
-.mockup img {
+.mockup  img {
   display: block;
   position: absolute;
   top: 0%;
@@ -204,6 +212,10 @@ canvas {
   border-radius: 6px;
   backface-visibility: hidden;
   transform: translate3d(0, 0, 1px);
+}
+
+#screentop {
+  height: 100%;
 }
 
 .mockup .part.bottom {
@@ -289,9 +301,12 @@ canvas {
 }
 .tapSt {
   position: absolute;
-  font-size: 16vh;
+  font-size: 7.5vw;
   font-weight: 800;
   top: 35vh;
   left: 36vw;
   cursor: pointer;
+}
+
+#screenTopImg {
 }

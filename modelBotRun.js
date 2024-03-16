@@ -1,6 +1,6 @@
 // for run
 
-import * as coordinate from './mapCoordinateResize.js'
+import * as coordinate from "./mapCoordinateResize.js";
 
 const x = [
   [-3.18088, -0.162027, -0.162027, 3.18088, 309.858, 308.71], // for 1st image
@@ -353,65 +353,117 @@ export const renderPlayerHTMLContent = function (color, lt, tp, no) {
   return playerHTMLContent;
 };
 
-
+const deadBodySvg = ` <div class="deadPlayer imposter">
+                        <img src="./image/img/blackDead.webp" alt="">
+                      </div>
+                    `;
 
 /////////////////////////////////////////////////////////////////////////////////////all adjustment related to color, side, animation //////////////////////////
 
-
-let mapCoordinate = [ //
-    [[[735 , 297, 860, 833]]], // left path of cafeteria till navigation1 (R14)
-    [[[735 , 297, 960, 393]]], // left path of cafeteria connecting cafeteria left entrance(R15)
-    [[[735 , 650, 813, 1100]]], // Navigation1 path(R16)
-    [[[861, 80, 1360, 547]]], // cafetaria (R17)
-
-    [[[735 , 900, 890, 1100]]], // electrical up1(R18)
-    [[[735 , 945, 930, 1100]]], // electrical down1(R19)
-    [[[222 , 550, 390, 750]]], // weapon(R20)
-
-    [[[1036, 457, 1130, 729]]],   // (R1) for cafteria and curve-path junction
-    [[[200, 620, 1279, 729]]],  // (R2) long path from weapon to curve path
-    [[[1185 ,613, 1272, 935]]], // curve-pathway (R3)
-    [[[1185 ,708, 1435, 818]]], // curve-pathway (R4)
-    [[[1024 ,800, 1282, 936]]], // curve-pathway (R5)
-    [[[1024 ,800, 1130, 1270]]], // between curve-pathway and long straight horizontal path before medBed (R6)
-    [[[255 ,1180, 1400, 1270]]], // horizontal path before medBed (R7)
-    [[[1300 ,1180, 1400, 2660]]], // vertical path before medBed till last of map(R8)
-    [[[1214 ,1500, 1490, 1742]]], // med-Bed (R9)
-    [[[860 ,1968, 1400, 2080]]], // Polu-weapon and vertical path (R10)
-    [[[900 ,1750, 1110, 2120]]], // Polu-weapon (R11)
-    [[[620, 2504, 1400, 2660]]], // Navigation-weapon2 horizontal path (R12)
-    [[[620, 2404, 820, 2760]]], // Navigation-weapon2 horizontal path (R13)
-];
 // resize coordinates Restriction
-export const reMap = function() {
-    const aspectRatio = 1536 / 730;
-    coordinate.aspectRatio(aspectRatio, window.innerWidth, window.innerHeight);
+export const reMapBotMovement = function () {
+  const aspectRatio = 1536 / 730;
+  coordinate.aspectRatio(aspectRatio, window.innerWidth, window.innerHeight);
 
-    mapCoordinate.map((elm) => {
-        elm.map((el) => {
-            el.map((e) => {
-                const val = coordinate.reTranslate(e[0], e[1], e[2], e[3]);
-                e[0] = val[0];
-                e[1] = val[1];
-                e[2] = val[2];
-                e[3] = val[3];
-            })
-        })
-    })
-}
+  Object.values(srcToDestCoordinate).forEach((elm) => {
+    elm[0][0].map((el, i) => {
+      elm[0][0][i] = coordinate.reTranslateBotCoordinate(el, elm[0][1][i]);
+    });
+    elm[1][0].map((el, i) => {
+      elm[1][0][i] = coordinate.reTranslateBotCoordinate(el, elm[1][1][i]);
+    });
+    console.log(elm);
+  });
+};
 
 let srcToDestCoordinate = {
-// 'className' : [[[[srctodest coordinate], [stod dir.]], [std coo][stod dir.]], []]       srtodest, count, i
-  'actualPlayer1': [[[1048, 642, 270 ] ,['r', 'd', 'l']], [[1048, 160, 896], ['r', 'u', 'l']], [true, 0, 0]],
-  'actualPlayer2': [[[1048, 642, 740, 948 ] ,['r', 'd', 'l', 'd']], [[630, 1048, 240, 1040], ['u', 'r', 'u', 'l']], [true, 0, 0]],
-  'actualPlayer3': [[[1048, 642, 1190, 858, 1040, 1200, 1315, 1978, 960] ,['l', 'd', 'r', 'd', 'l', 'd', 'r', 'd', 'l']], [[1337, 1213, 1053, 850, 1200, 642, 1050, 160, 896], ['r', 'u', 'l', 'u', 'r', 'u', 'l', 'u', 'r']], [true, 0, 0]],
-  'actualPlayer4': [[[1048, 642, 1190, 858, 1040, 1200, 1315, 2552, 644] ,['l', 'd', 'r', 'd', 'l', 'd', 'r', 'd', 'l']], [[1337, 1213, 1053, 850, 1200, 642, 1050, 160, 896], ['r', 'u', 'l', 'u', 'r', 'u', 'l', 'u', 'r']], [true, 0, 0]]
+  // 'className' : [[[[srctodest coordinate], [stod dir.]], [std coo][stod dir.]], []]       srtodest, count, i
+  actualPlayer1: [
+    [
+      [1048, 642, 270],
+      ["r", "d", "l"],
+    ],
+    [
+      [1048, 160, 896],
+      ["r", "u", "l"],
+    ],
+    [true, 0, 0],
+  ],
+  actualPlayer2: [
+    [
+      [1048, 642, 740, 948],
+      ["r", "d", "l", "d"],
+    ],
+    [
+      [630, 1048, 240, 1040],
+      ["u", "r", "u", "l"],
+    ],
+    [true, 0, 0],
+  ],
+  actualPlayer3: [
+    [
+      [1048, 642, 1190, 858, 1040, 1200, 1315, 1978, 960],
+      ["l", "d", "r", "d", "l", "d", "r", "d", "l"],
+    ],
+    [
+      [1337, 1213, 1053, 850, 1200, 642, 1050, 160, 896],
+      ["r", "u", "l", "u", "r", "u", "l", "u", "r"],
+    ],
+    [true, 0, 0],
+  ],
+  actualPlayer4: [
+    [
+      [1048, 642, 1190, 858, 1040, 1200, 1315, 2552, 644],
+      ["l", "d", "r", "d", "l", "d", "r", "d", "l"],
+    ],
+    [
+      [1337, 1213, 1053, 850, 1200, 642, 1050, 160, 896],
+      ["r", "u", "l", "u", "r", "u", "l", "u", "r"],
+    ],
+    [true, 0, 0],
+  ],
+};
+
+export const stationaryAdjustPlayer = function (i, num) {
+  const ele = document.querySelector(`.actualPlayer${num}`);
+  let a, leg_1, c, leg_2, e, d_leg_11, d_leg_12, d_leg_21, d_leg_22;
+  a = ele.querySelector(".transform-1");
+  leg_1 = ele.querySelector(".transform-2");
+  c = ele.querySelector(".transform-3");
+  leg_2 = ele.querySelector(".transform-4");
+  e = ele.querySelector(".transform-5");
+
+  d_leg_11 = ele.querySelector(".leg-11");
+  d_leg_12 = ele.querySelector(".leg-12");
+  d_leg_21 = ele.querySelector(".leg-21");
+  d_leg_22 = ele.querySelector(".leg-22");
+  // set the transformation
+  a.style.transform = `matrix(${x[i][0]}, ${x[i][1]}, ${x[i][2]}, ${x[i][3]}, ${x[i][4]}, ${x[i][5]})`;
+  leg_1.style.transform = `matrix(${y[i][0]}, ${y[i][1]}, ${y[i][2]}, ${y[i][3]}, ${y[i][4]}, ${y[i][5]})`;
+  c.style.transform = `matrix(${z[i][0]}, ${z[i][1]}, ${z[i][2]}, ${z[i][3]}, ${z[i][4]}, ${z[i][5]})`;
+  leg_2.style.transform = `matrix(${s[i][0]}, ${s[i][1]}, ${s[i][2]}, ${s[i][3]}, ${s[i][4]}, ${s[i][5]})`;
+  e.style.transform = `matrix(${t[i][0]}, ${t[i][1]}, ${t[i][2]}, ${t[i][3]}, ${t[i][4]}, ${t[i][5]})`;
+
+  // rewrite the drawable of legs
+  d_leg_11.setAttribute("d", d1[i]);
+  d_leg_12.setAttribute("d", d2[i]);
+  d_leg_21.setAttribute("d", d3[i]);
+  d_leg_22.setAttribute("d", d4[i]);
+};
+
+function resetDirection(count, length, srcToDest, i) {
+  if (count >= length) {
+    srcToDest = !srcToDest;
+    count = 0;
+    waitForSeconds[i - 1] = 100;
+    stationaryAdjustPlayer(0, i);
+  }
+  return [srcToDest, count];
 }
 
 const speed = 0.5;
 
 function movePlayer(classN) {
-
   const ele = document.querySelector(`.${classN}`);
   const top = parseFloat(ele.style.top);
   const left = parseFloat(ele.style.left);
@@ -419,40 +471,64 @@ function movePlayer(classN) {
   let count = srcToDestCoordinate[classN][2][1];
   let srcToDest = srcToDestCoordinate[classN][2][0];
 
-  const direction = srcToDestCoordinate[classN][srcToDest === true ? 0 : 1][1][count];
-  const dest = srcToDestCoordinate[classN][srcToDest === true ? 0 : 1][0][count] / 16;
+  const direction =
+    srcToDestCoordinate[classN][srcToDest === true ? 0 : 1][1][count];
+  const dest =
+    srcToDestCoordinate[classN][srcToDest === true ? 0 : 1][0][count] / 16;
 
-  if(direction === 'r') {
-    ele.querySelector('svg').style.transform = 'scale(-1, 1)';
-    if(left + coordinate.convertVal(speed) > dest) {
+  const i = +classN.slice(-1);
+
+  if (direction === "r") {
+    ele.querySelector("svg").style.transform = "scale(-1, 1)";
+    if (left + coordinate.convertVal(speed) > dest) {
       ele.style.left = `${dest}rem`;
       count++;
-      [srcToDest, count] = resetDirection(count, srcToDestCoordinate[classN][0][0].length, srcToDest);
+      [srcToDest, count] = resetDirection(
+        count,
+        srcToDestCoordinate[classN][0][0].length,
+        srcToDest,
+        i
+      );
     } else {
       ele.style.left = `${left + coordinate.convertVal(speed)}rem`;
     }
-  } else if(direction === 'd') {
-    if(top + coordinate.convertVal(speed) > dest) {
+  } else if (direction === "d") {
+    if (top + coordinate.convertVal(speed) > dest) {
       ele.style.top = `${dest}rem`;
       count++;
-      [srcToDest, count] = resetDirection(count, srcToDestCoordinate[classN][0][0].length, srcToDest);
+      [srcToDest, count] = resetDirection(
+        count,
+        srcToDestCoordinate[classN][0][0].length,
+        srcToDest,
+        i
+      );
     } else {
       ele.style.top = `${top + coordinate.convertVal(speed)}rem`;
     }
-  } else if(direction === 'l') {
-    ele.querySelector('svg').style.transform = 'scale(1, 1)';
-    if(left - coordinate.convertVal(speed) < dest) {
+  } else if (direction === "l") {
+    ele.querySelector("svg").style.transform = "scale(1, 1)";
+    if (left - coordinate.convertVal(speed) < dest) {
       ele.style.left = `${dest}rem`;
       count++;
-      [srcToDest, count] = resetDirection(count, srcToDestCoordinate[classN][0][0].length, srcToDest);
+      [srcToDest, count] = resetDirection(
+        count,
+        srcToDestCoordinate[classN][0][0].length,
+        srcToDest,
+        i
+      );
     } else {
       ele.style.left = `${left - coordinate.convertVal(speed)}rem`;
     }
-  } else if(direction === 'u') {
-    if(top - coordinate.convertVal(speed) < dest) {
+  } else if (direction === "u") {
+    if (top - coordinate.convertVal(speed) < dest) {
       ele.style.top = `${dest}rem`;
       count++;
-      [srcToDest, count] = resetDirection(count, srcToDestCoordinate[classN][0][0].length, srcToDest);
+      [srcToDest, count] = resetDirection(
+        count,
+        srcToDestCoordinate[classN][0][0].length,
+        srcToDest,
+        i
+      );
     } else {
       ele.style.top = `${top - coordinate.convertVal(speed)}rem`;
     }
@@ -462,20 +538,13 @@ function movePlayer(classN) {
   srcToDestCoordinate[classN][2][0] = srcToDest;
 }
 
-function resetDirection(count, length, srcToDest) {
-  if(count >= length) {
-    srcToDest = !srcToDest;
-    count = 0;
-  }
-  return [srcToDest, count];
-}
-
 //////////////////////////////////////////////////////////////////////////////////////
 
 function setRunning(el) {
   let a, leg_1, c, leg_2, e, d_leg_11, d_leg_12, d_leg_21, d_leg_22;
   const ele = document.querySelector(`.${el}`);
 
+  // console.log(ele)
   let i = srcToDestCoordinate[el][2][2];
 
   a = ele.querySelector(".transform-1");
@@ -502,24 +571,70 @@ function setRunning(el) {
   d_leg_21.setAttribute("d", d3[i]);
   d_leg_22.setAttribute("d", d4[i]);
   i++;
-  if(i > 12) i = 0;
+  if (i > 12) i = 0;
 
   srcToDestCoordinate[el][2][2] = i;
 }
 
 function runPlayer(classN) {
+  // console.log(classN)
   setRunning(classN);
   // move coordinates
   movePlayer(classN);
 }
 
+let waitForSeconds = [30, 40, 20, 30];
+let deadClass = [false, false, false, false];
 
 function runMovementForAllBot() {
-    runPlayer('actualPlayer1');
-    runPlayer('actualPlayer2');
-    runPlayer('actualPlayer3');
-    runPlayer('actualPlayer4');
+  if (!deadClass[0]) {
+    if (waitForSeconds[0] <= 0) runPlayer(`actualPlayer1`);
+    else waitForSeconds[0]--;
+  }
+  if (!deadClass[1]) {
+    if (waitForSeconds[1] <= 0) runPlayer(`actualPlayer2`);
+    else waitForSeconds[1]--;
+  }
+  if (!deadClass[2]) {
+    if (waitForSeconds[2] <= 0) runPlayer(`actualPlayer3`);
+    else waitForSeconds[2]--;
+  }
+  if (!deadClass[3]) {
+    if (waitForSeconds[3] <= 0) runPlayer(`actualPlayer4`);
+    else waitForSeconds[3]--;
+  }
 }
-export const runAllBot = function(bots) {
-  setInterval(runMovementForAllBot, 75);
+
+let allBots;
+let player;
+export const runAllBot = function (allBot) {
+  allBots = [...document.querySelectorAll(`.background > div`)].slice(0, 4);
+  allBots.reverse();
+  player = document.querySelector(".actualPlayer0");
+  console.log(allBots, player);
+  window["botRunningAction"] = setInterval(runMovementForAllBot, 75);
+};
+
+function checkDistanceBwPlayer(bot_X, player_X) {
+  return Math.abs(
+    parseFloat(bot_X) - parseFloat(player_X)
+  ) < coordinate.convertVal(3) ;
 }
+
+export const killFunction = function () {
+  window.addEventListener("keydown", function (e) {
+    if (e.key != "k") return;
+    console.log("k key is fired");
+    allBots.map((bot, i) => {
+      if (checkDistanceBwPlayer(bot.style.top, player.style.top) && checkDistanceBwPlayer(bot.style.left, player.style.left)) {
+        bot.classList.add("dead");
+        deadClass[i] = true;
+        console.log(bot);
+        let child = bot.querySelector("svg");
+        console.log(child);
+        bot.removeChild(child);
+        bot.insertAdjacentHTML('afterbegin',deadBodySvg);
+      }
+    });
+  });
+};

@@ -16,11 +16,13 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="animation.css" />
     <link rel="stylesheet" href="terminal.css" />
+    <link rel="stylesheet" href="skillProject.css" />
     <title>Document</title>
   </head>
   <body>
     <canvas id="myCanvas"></canvas>
     <div class="backgroundContext">
+      
       <div class="contact-left">
         <div class="mail">
           <a href="mailto:niteshkumar01487@gmail.com">
@@ -51,7 +53,8 @@
           <div class="container">
             <div class="tapSt">click to start</div>
             <div class="mockup mockup-macbook loaded opened">
-              <div class="part top">
+              <div class="part top" id="screenTop">
+
                 <img
                   src="https://d1xm195wioio0k.cloudfront.net/images/mockup/macbook-top.svg"
                   alt=""
@@ -63,7 +66,8 @@
                   class="cover"
                 />
 
-                <img src="./img/icon/terminal.png" alt="" srcset="" />
+                <img id="screenTopImg" src="./img/icon/terminal.png" alt="" srcset="" />
+
               </div>
               <div class="part bottom">
                 <img
@@ -76,34 +80,39 @@
                   alt=""
                   class="bottom"
                 />
+                
               </div>
+
+              <!-- <div id="chat-container">
+                <div id="chat-messages"></div>
+                <div id="input-container">
+                  <textarea type="text" id="user-input" placeholder="" autofocus>
+                  </textarea>
+                </div>
+              </div> -->
+
             </div>
           </div>
         </div>
-        <div id="chat-container">
-          <div id="chat-messages"></div>
-          <div id="input-container">
-            <textarea type="text" id="user-input" placeholder="" autofocus>
-            </textarea>
-          </div>
-        </div>
+
         <div class="popup">
           <div class="popup-content">
             <div class="cross">How To Play</div>
             <div class="controls">
               <div class="control">Controls</div>
-              <div class="movement"> &#x2022; w : up &#8593;</div>
-              <div class="movement"> &#x2022; a : left &#8592;</div>
-              <div class="movement"> &#x2022; s : down &#8595;</div>
-              <div class="movement"> &#x2022; d : right &#8594;</div>
-              <div class="movement"> &#x2022; k : kill &#8594;</div>
-              <div class="movement"> &#x2022; Enter : to toggle b/w section &#8626;</div>
+              <div class="movement">&#x2022; w : up &#8593;</div>
+              <div class="movement">&#x2022; a : left &#8592;</div>
+              <div class="movement">&#x2022; s : down &#8595;</div>
+              <div class="movement">&#x2022; d : right &#8594;</div>
+              <div class="movement">&#x2022; k : kill &#8594;</div>
+              <div class="movement">
+                &#x2022; Enter : to toggle b/w section &#8626;
+              </div>
             </div>
             <div class="popup-message">
-              You are alway an imposter.
-              Kill All the remaining Player.
-              And explore the skill and project section.
-              Use the above control section to control the player.
+              You are alway an imposter. Kill All the remaining Player. And
+              explore the skill and project section. Use the above control
+              section to control the player.
             </div>
             <div class="close" id="closeButton">&times;</div>
           </div>
@@ -115,17 +124,28 @@
           <div class="stopanimation">STOP ANIMATION</div>
         </div>
       </div>
-    </div>
-    <div class="back-Anima">
-      <div class="background">
-        <div class="buttonBack">
-          <div class="backToAnimation">
-            <img src="./image/img/backIcon.png" alt="" srcset="" />
-          </div>
-          <div class="help">
-            <img src="./image/img/help.png" alt="error" />
-          </div>
+
+      <div id="chat-container">
+        <div id="chat-messages"></div>
+        <div id="input-container">
+          <textarea type="text" id="user-input" placeholder="" autofocus>
+          </textarea>
         </div>
+      </div>
+      
+    </div>
+    
+    <div class="back-Anima">
+      <div class="buttonBack">
+        <div class="backToAnimation">
+          <img src="./image/img/backIcon.png" alt="" srcset="" />
+        </div>
+        <div class="help">
+          <img src="./image/img/help.png" alt="error" />
+        </div>
+      </div>
+      <div class="background">
+
         <div class="singleCurve">
           <img src="./image/singleCurve.png" alt="" srcset="" />
         </div>
@@ -168,6 +188,56 @@
         <div class="Navigation2">
           <img src="./image/Navigation2.webp" alt="" />
         </div>
+        <!-- <div class="skills1"> -->
+          <!-- </div> -->
+          <!-- <div class="skills2"> -->
+              <!-- </div> -->
+        
+        <div class="press-enter">Press : Enter</div>
+        <div class="press-o">Press : O to open</div>
+              
+      </div>
+        <div class="intro-game skill">Welcome to amongu game !!!</div>
+        <div class="html skill">html</div>
+        <div class="css skill">css</div>
+        <div class="javascript skill">javascript</div>
+        <div class="react skill">react</div>
+        <div class="skill1 skill">SKILLS</div>
+
+        <div class="nodeJS skill">nodeJS</div>
+        <div class="ExpressJS skill">ExpressJS</div>
+        <div class="mongoDB skill">mongoDB</div>
+        <div class="Restful skill">Restful API</div>
+        <div class="skill2 skill">SKILLS</div>
+        <div class="project pro">
+        </div>
+        <div class="projects-name pro">e-cart</div>
+        <div class="project-img pro">
+          <img src="./image/img/e-cart.png" alt="">
+        </div>
+      
+    </div>
+
+    <div class="popup1">
+      <div class="popup-content1">
+        <div class="cross1">How To Play</div>
+        <div class="controls1">
+          <div class="control1">Controls</div>
+          <div class="movement1">&#x2022; w : up &#8593;</div>
+          <div class="movement1">&#x2022; a : left &#8592;</div>
+          <div class="movement1">&#x2022; s : down &#8595;</div>
+          <div class="movement1">&#x2022; d : right &#8594;</div>
+          <div class="movement1">&#x2022; k : kill &#8594;</div>
+          <div class="movement1">
+            &#x2022; Enter : to toggle b/w section &#8626;
+          </div>
+        </div>
+        <div class="popup-message1">
+          You are alway an imposter. Kill All the remaining Player. And
+          explore the skill and project section. Use the above control section
+          to control the player.
+        </div>
+        <div class="close1" id="closeButton1">&times;</div>
       </div>
     </div>
   </body>

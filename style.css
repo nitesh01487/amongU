@@ -217,12 +217,12 @@ html {
 }
 
 .backToAnimation {
-    height: 4rem;
-    width: 4rem;
+    height: 6vw;
+    width: 6vw;
     position: relative;
     cursor: pointer;
     border-radius: 5rem;
-    margin: 1rem;
+    margin: 1vw;
     display: inline-block;
 }
 
@@ -232,12 +232,12 @@ html {
     border-radius: 5rem;
 }
 .help {
-    height: 4rem;
-    width: 4rem;
+    height: 6vw;
+    width: 6vw;
     position: relative;
     cursor: pointer;
     border-radius: 5rem;
-    margin: 1rem;
+    margin: 1vw;
     display: inline-block;
 }
 
@@ -253,6 +253,13 @@ html {
     left: 1rem;
     display: inline-block;
     z-index: 5;
-    height: 6rem;
-    width: 12.5rem;
+    height: 8vw;
+    width: 18vw;
+}
+
+
+.deadPlayer, 
+.deadPlayer img {
+    height: 100%;
+    width: 100%;
 }

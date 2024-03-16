@@ -19,10 +19,6 @@ const p4 = new actualPlayer(model.colors[4], 'bot');
 
 const listOfPlayer = [p0, p1, p2, p3, p4];
 
-
-
-
-
 const controlAnimation = function(from = 'down') {
 
     // Check the movement validity
@@ -57,6 +53,8 @@ const renderPlayer = function() {
 
 
 const init = function() {
+
+    console.log(window.innerHeight, window.innerWidth)
     // initialize colors
     model.shuffleColors();
 
@@ -66,14 +64,51 @@ const init = function() {
     // action for representing
     p0.addRunningHandler(controlAnimation);
 
-    // resize map
+    // resize map of background
     const allElement = [...document.querySelectorAll('.background > div')];
+    console.log(allElement)
     const aspectRatio = 1536 / 730;
     resize.aspectRatioCorrection(aspectRatio, window.innerWidth, window.innerHeight);
+    // let i = 0;
     allElement.map((el, i) => {
-        resize.reshift(`${el.className}`);
-        resize.resize(`${el.className}`);
+        // if(i > 11) return;
+        // i++;
+        let cl = el.className;
+        // if(el.classList.contains('skill')){
+        //     cl = cl.split(' ')[0]
+        // } else {
+        //     if(el.classList.contains('pro'))
+        //         cl = cl.split(' ')[0];
+            resize.resize(`${cl}`);
+        // }
+        resize.reshift(`${cl}`);
+    });
+    // adjust the size of skill
+    const allSkill = [...document.querySelectorAll('.skill')];
+    allSkill.map((el) => {
+        let cl = el.className.split(' ')[0];
+        // resize.resize(`${cl}`);
+        resize.reshift(`${cl}`);
     })
+
+    // adjust all the project
+    const allProject = [...document.querySelectorAll('.pro')];
+    allProject.map((el) => {
+        let cl = el.className.split(' ')[0];
+        resize.reshift(`${cl}`);
+        resize.resize(`${cl}`);
+    })
+
+    // set all button
+    const buttonsBack = document.querySelector('.buttonBack');
+    
+    // model.reMap();
+
+    // modelBotRun
+    modelBotRun.reMapBotMovement();
+
+    // kill Function on bot
+    modelBotRun.killFunction();
 
 };
 
@@ -115,7 +150,10 @@ function playGame() {
     background.style.display = 'none';
     mainGameArea.style.display = 'block';
     init();
-    makeBotMovement();
+    modelBotRun.runAllBot(listOfPlayer);
+}
+function goToBackPage() {
+    window.location.reload();
 }
 
 var start = 'start'
@@ -126,7 +164,15 @@ const linklocation = {
 }
 
 // terminal Control
+
+function reArrangePixel(size) {
+    return (window.innerHeight / 100) * size;
+}
+
+const terminalText = document.getElementById('chat-container')
+// console.log(terminalText)
 const actionTerminal = function() {
+    
     terminalControl.style.display = 'block';
     if(start === 'start') { // for first time
         console.log('start')
@@ -159,6 +205,13 @@ const actionTerminal = function() {
         textValue.focus();
     }
     start = '';
+    const elemen = document.querySelector('#screenTopImg').getBoundingClientRect();
+    console.log(elemen)
+    
+terminalText.style.top = `${elemen.top + reArrangePixel(3.5)}px`;
+terminalText.style.left = `${elemen.left}px`;
+terminalText.style.height = `${elemen.height - reArrangePixel(3.5)}px`;
+terminalText.style.width = `${elemen.width}px`;
     
 }
 
@@ -211,18 +264,24 @@ stopAnimation.addEventListener('click', function() {
 });
 
 const playButton = document.querySelector('.play');
-
+const backButton = document.querySelector('.backToAnimation');
+const help = document.querySelector('.help');
 const canva = document.querySelector('#myCanvas');
 const background = document.querySelector('.backgroundContext');
 const mainGameArea = document.querySelector('.back-Anima')
 
-playButton.addEventListener('click', playGame)
+playButton.addEventListener('click', playGame);
+backButton.addEventListener('click', goToBackPage);
 
 // for popup message box /////////////////////////////////////////////////////////////////////////////////
 const openButton = document.querySelector('.howToPlay');
 const popup = document.querySelector(".popup");
-popup.style.display = 'none'
+const popup1 = document.querySelector(".popup1");
+
+popup.style.display = 'none';
+popup1.style.display = 'none';
 const closeButton = document.getElementById("closeButton");
+const closeButton1 = document.getElementById("closeButton1");
 
 // Open popup when the open button is clicked
 openButton.addEventListener("click", function() {
@@ -239,21 +298,77 @@ openButton.addEventListener("click", function() {
 closeButton.addEventListener("click", function() {
   popup.style.display = "none";
 });
+closeButton1.addEventListener("click", function() {
+    console.log('hello boring')
+  popup1.style.display = "none";
+});
+
+help.addEventListener('click', function() {
+    if(popup1.style.display === 'none') {
+        popup1.style.display = 'block';
+        // Focus on the close button when the popup1 is opened
+        closeButton.focus();
+      } else {
+        popup1.style.display = 'none';
+      }
+})
 
 // Add blur event listener to the close button
 popup.addEventListener("blur", function() {
   // Close the popup when the close button loses focus
-  console.log('blur event fired')
-  popup.style.display = 'none';
+  popup.style.display = "none";
 });
 
+window.addEventListener('resize', goToBackPage);
 
-const allBot = [...listOfPlayer.slice(1)];
-function makeBotMovement() {
-    console.log(allBot)
-    modelBotRun.runAllBot(allBot);
+// window.addEventListener('click', function(e) {
+//     console.log(e)
+// })
+
+let index = 0;
+const LevelDisplay = [
+    ['e-cart', 'https://e-cart-v-ecom.onrender.com', './image/img/e-cart.png'],
+    ['natours', 'https://e-cart-v-ecom.onrender.com', './image/img/natours.png'],
+    ['chat-app', 'https://chat-app-nitesh.onrender.com', './image/img/chat-app.png']
+]
+
+window.addEventListener('keydown', function(e) {
+    if(!(e.key === 'o' ||e.key === 'Enter')) return;
+    if(e.key === 'o' ||e.key === 'Enter') {
+        const player = document.querySelector('.actualPlayer0');
+        const l = player.offsetLeft + 20;
+        const t = player.offsetTop + 20;
+        const tag = document.querySelector('.press-enter');
+        const L = tag.offsetLeft;
+        const R = L + tag.offsetWidth;
+        const T = tag.offsetTop;
+        const B = T + tag.offsetHeight;
+        if((L <= l && l <= R) && (T <= t && t <= B)) {
+            // console.log(e.key)
+            const projNm = document.querySelector('.projects-name');
+            const projimg = this.document.querySelector('.project-img > img')
+            
+            if(e.key === 'Enter') {
+                index++;
+                if(index >= 3) index = 0;
+                projNm.textContent = LevelDisplay[index][0];
+                projimg.src = LevelDisplay[index][2];
+            }
+            if(e.key === 'o') {
+                window.location.href = LevelDisplay[index][1];
+            }
+        }
+    }
+})
+
+if(window.innerHeight > window.innerWidth) {
+    alert('Please rotate your device: It is responsive in landscape mode');
 }
 
-window.addEventListener('click', function(e){
-    console.log(e)
-})
+function isTouchDevice() {
+    return 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+}
+  
+if (isTouchDevice()) {
+    alert('Please do open the applicationin device which has keyboard');
+}

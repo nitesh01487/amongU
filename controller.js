@@ -65,22 +65,18 @@ const init = function() {
     p0.addRunningHandler(controlAnimation);
 
     // resize map of background
+    console.log(window.innerWidth, window.innerHeight)
     const allElement = [...document.querySelectorAll('.background > div')];
-    // console.log(allElement)
+    console.log(allElement)
     const aspectRatio = 1536 / 730;
-    resize.aspectRatioCorrection(aspectRatio, window.innerWidth, window.innerHeight);
+    resize.aspectRatioCorrection(aspectRatio, screen.width, screen.height);
     // let i = 0;
     allElement.map((el, i) => {
         // if(i > 11) return;
         // i++;
         let cl = el.className;
-        // if(el.classList.contains('skill')){
-        //     cl = cl.split(' ')[0]
-        // } else {
-        //     if(el.classList.contains('pro'))
-        //         cl = cl.split(' ')[0];
+        // console.log(cl)
             resize.resize(`${cl}`);
-        // }
         resize.reshift(`${cl}`);
     });
     // adjust the size of skill

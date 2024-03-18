@@ -27,7 +27,7 @@ export const reTranslateBotCoordinate = function(val, dir) {
     let originalScreenHeight = (730 - heightCorrection);
     let screenWidth = window.innerWidth;
     let screenHeight = window.innerHeight;
-    console.log(heightCorrection)
+    // console.log(heightCorrection)
 
     // elements
     // const l = screenWidth * (left / originalScreenWidth);

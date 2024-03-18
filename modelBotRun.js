@@ -372,7 +372,7 @@ export const reMapBotMovement = function () {
     elm[1][0].map((el, i) => {
       elm[1][0][i] = coordinate.reTranslateBotCoordinate(el, elm[1][1][i]);
     });
-    console.log(elm);
+    // console.log(elm);
   });
 };
 
@@ -611,7 +611,7 @@ export const runAllBot = function (allBot) {
   allBots = [...document.querySelectorAll(`.background > div`)].slice(0, 4);
   allBots.reverse();
   player = document.querySelector(".actualPlayer0");
-  console.log(allBots, player);
+  // console.log(allBots, player);
   window["botRunningAction"] = setInterval(runMovementForAllBot, 75);
 };
 
@@ -624,14 +624,14 @@ function checkDistanceBwPlayer(bot_X, player_X) {
 export const killFunction = function () {
   window.addEventListener("keydown", function (e) {
     if (e.key != "k") return;
-    console.log("k key is fired");
+    // console.log("k key is fired");
     allBots.map((bot, i) => {
       if (checkDistanceBwPlayer(bot.style.top, player.style.top) && checkDistanceBwPlayer(bot.style.left, player.style.left)) {
         bot.classList.add("dead");
         deadClass[i] = true;
-        console.log(bot);
+        // console.log(bot);
         let child = bot.querySelector("svg");
-        console.log(child);
+        // console.log(child);
         bot.removeChild(child);
         bot.insertAdjacentHTML('afterbegin',deadBodySvg);
       }

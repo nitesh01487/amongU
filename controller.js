@@ -54,7 +54,7 @@ const renderPlayer = function() {
 
 const init = function() {
 
-    console.log(window.innerHeight, window.innerWidth)
+    // console.log(window.innerHeight, window.innerWidth)
     // initialize colors
     model.shuffleColors();
 
@@ -66,7 +66,7 @@ const init = function() {
 
     // resize map of background
     const allElement = [...document.querySelectorAll('.background > div')];
-    console.log(allElement)
+    // console.log(allElement)
     const aspectRatio = 1536 / 730;
     resize.aspectRatioCorrection(aspectRatio, window.innerWidth, window.innerHeight);
     // let i = 0;
@@ -175,7 +175,7 @@ const actionTerminal = function() {
     
     terminalControl.style.display = 'block';
     if(start === 'start') { // for first time
-        console.log('start')
+        // console.log('start')
         terminalControlJS.sendMessage(start);
         textValue.addEventListener('keydown', function(e) {
             if(e.key === 'Enter') {
@@ -184,7 +184,7 @@ const actionTerminal = function() {
                 .value.toLowerCase()
                 .split('>')[1]
                 .trim();
-                console.log(userInput)
+                // console.log(userInput)
     
                 if(userInput === 'play') {
                     playGame();
@@ -206,7 +206,7 @@ const actionTerminal = function() {
     }
     start = '';
     const elemen = document.querySelector('#screenTopImg').getBoundingClientRect();
-    console.log(elemen)
+    // console.log(elemen)
     
 terminalText.style.top = `${elemen.top + reArrangePixel(3.5)}px`;
 terminalText.style.left = `${elemen.left}px`;
@@ -299,7 +299,7 @@ closeButton.addEventListener("click", function() {
   popup.style.display = "none";
 });
 closeButton1.addEventListener("click", function() {
-    console.log('hello boring')
+    // console.log('hello boring')
   popup1.style.display = "none";
 });
 
@@ -321,14 +321,14 @@ popup.addEventListener("blur", function() {
 
 window.addEventListener('resize', goToBackPage);
 
-// window.addEventListener('click', function(e) {
-//     console.log(e)
-// })
+window.addEventListener('click', function(e) {
+    console.log(e)
+})
 
 let index = 0;
 const LevelDisplay = [
     ['e-cart', 'https://e-cart-v-ecom.onrender.com', './image/img/e-cart.png'],
-    ['natours', 'https://e-cart-v-ecom.onrender.com', './image/img/natours.png'],
+    ['natours', 'https://natours-app0-ilr8.onrender.com', './image/img/natours.png'],
     ['chat-app', 'https://chat-app-nitesh.onrender.com', './image/img/chat-app.png']
 ]
 
@@ -339,10 +339,10 @@ window.addEventListener('keydown', function(e) {
         const l = player.offsetLeft + 20;
         const t = player.offsetTop + 20;
         const tag = document.querySelector('.press-enter');
-        const L = tag.offsetLeft;
-        const R = L + tag.offsetWidth;
-        const T = tag.offsetTop;
-        const B = T + tag.offsetHeight;
+        const L = tag.offsetLeft - 30;
+        const R = L + tag.offsetWidth + 30;
+        const T = tag.offsetTop - 30;
+        const B = T + tag.offsetHeight + 30;
         if((L <= l && l <= R) && (T <= t && t <= B)) {
             // console.log(e.key)
             const projNm = document.querySelector('.projects-name');

@@ -376,7 +376,10 @@ let mapCoordinate = [ //
     [[[735 , 297, 860, 833]]], // left path of cafeteria till navigation1 (R14)
     [[[735 , 297, 960, 393]]], // left path of cafeteria connecting cafeteria left entrance(R15)
     [[[735 , 650, 813, 1100]]], // Navigation1 path(R16)
-    [[[861, 80, 1360, 547]]], // cafetaria (R17)
+    // [[[861, 80, 1360, 547]]], // cafetaria (R17)
+    [[[969, 80, 1235, 547]]], // cafetaria (R17)
+    [[[864, 166, 1349, 442]]], // cafetaria (R17)
+    [[[908, 129, 1273, 505]]], // cafetaria (R17)
 
     [[[735 , 900, 890, 1100]]], // electrical up1(R18)
     [[[735 , 945, 930, 1100]]], // electrical down1(R19)

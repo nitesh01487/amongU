@@ -5,7 +5,7 @@ export default class Player {
     _ele;
     _x_co;
     _y_co;
-    _speed = 0.5;
+    _speed = 1;
     _radius;
     _animation;
     isLeft = false;
